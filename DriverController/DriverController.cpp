@@ -28,9 +28,9 @@ ULONG EncryptRequestCode(ULONG ioctl) {
 	return encrypted_value;
 }
 
-#define IOCTL_PsGetProcessSectionBaseAddress		0x13370400
-#define IOCTL_ReadProcessMemory						0x13370800
-#define IOCTL_WriteProcessMemory					0x13370C00
+#define IOCTL_PsGetProcessSectionBaseAddress 0x13370400
+#define IOCTL_ReadProcessMemory 0x13370800
+#define IOCTL_WriteProcessMemory 0x13370C00
 
 typedef struct _readmem
 {
