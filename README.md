@@ -1,8 +1,14 @@
 <h1>Reverse Engineering a Signed Kernel Driver</h1>
 <h2>Introduction:</h2>
 <p>Recently, I was approached by a Discord user who requested that I crack a P2C which i will not name, as he had been banned by them after experiencing some difficulties while attempting to use their services. Although initially hesitant, my boredom got the better of me, and I decided to take a look. I was not surprised to find that the loader had been packed and virtualized using one of the latest <b>VMProtect3</b> versions, which made things a bit more complicated. However, through dynamic analysis, I discovered a binary being dropped to disk on my C:\Windows\System32 directory. I expected this to be an executable, but it had a .sys extension. Upon closer inspection, I found the driver's size to be around 2MB, which is unusual for drivers, and its digital certificate had been signed with a revoked/expired EV certificate from a Chinese company called <b>'Binzhoushi Yongyu Feed Co.,LTd.'</b></p>
+<img src="https://i.imgur.com/J8wchy4.png" alt="deviceo" width="50%">
+
 <h2>Investigation:</h2>
-<p>Further investigation revealed that the driver's timestamp was from 2015, which was unusual. I decided to load the driver into IDA and found that it had been packed and virtualized with VMProtect3 once again. Unfortunately, the entry point was virtualized, so I had to enlist the help of a friend to divirtualize the binary using specialized tools. After obtaining the devirtualized binary, I delved further into the driver's internals and discovered that it used I/Os for communication, which is not out of the ordinary. </p> 
+<p>Further investigation revealed that the driver's timestamp was from 2015, which was unusual. I decided to load the driver into IDA and found that it had been packed and virtualized with VMProtect3 once again.</p>
+<img src="https://i.imgur.com/YNXvkUv.png" alt="deviceo" width="50%">
+
+
+<p> Unfortunately, the entry point was virtualized, so I had to enlist the help of a friend to divirtualize the binary using specialized tools. After obtaining the devirtualized binary, I delved further into the driver's internals and discovered that it used I/Os for communication, which is not out of the ordinary. </p> 
 <p>Eventually, I found the driver object's reference, followed a sub-function, and located the IRP/Dispatch handler of the driver.</p>
 
 <div style="display:flex; align-items:center;">
@@ -10,6 +16,7 @@
   <img src="https://i.imgur.com/KxgaJws.png" alt="device1" style="display:inline-block; width:170px; float:left;">
   <p><b>sub_1400011D0 is the dispatcher</b></p>
 </div>
+
 
 <p>While the functionality wasn't too complicated, the control code passed through the stack location was "encrypted" with some XOR and bitwise operations. The driver controller example program explains how it works. </p> 
 <img src="https://i.imgur.com/wf64H8f.png" alt="deviceo">
@@ -45,6 +52,6 @@ The second function call reads the process memory through physical memory. It ta
 <img src="https://i.imgur.com/sbVJfYw.png" alt="deviceo">
 
 <h2>Conclusion:</h2>
-<p> Overall, reverse engineering the signed kernel driver was an interesting and challenging task. It involved dynamic analysis, divirtualization, and investigation into the driver's internals to uncover its functionalities and control codes. It's important to note that reverse engineering and cracking software without permission is illegal and can have severe consequences. As such, it's crucial to always act ethically and with integrity when dealing with software and its security.</p>
+<p>Overall, though not certain on how the driver is being allowed to be loaded on my Windows 11 and 10 systems despite having a revoked/expired certificate, reverse engineering the signed kernel driver was an interesting and challenging task. It involved dynamic analysis, divirtualization, and investigation into the driver's internals to uncover its functionalities and control codes. It's important to note that reverse engineering and cracking software without permission is illegal and can have severe consequences. As such, it's crucial to always act ethically and with integrity when dealing with software and its security.</p>
 <p> This repository contains the signed binary along with an example program on how to send requests to this driver and technically use it. <br>
 <b> Use at own risk. </b> </p> 
