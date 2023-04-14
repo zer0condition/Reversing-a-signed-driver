@@ -39,7 +39,8 @@
 </div>
 
 The second function call reads the process memory through physical memory. It takes the source address, buffer, size, and a variable that returns a value but is not used further: </p>
-<img src="https://i.imgur.com/jevpmlw.png" alt="deviceo">
+<img src="https://i.imgur.com/q0O8EwJ.png" alt="deviceo">
+
 <p> Taking a look inside the function, there is nothing that complicated; it converts the virtual address passed and converts it into a physical address (linear translation) and is used in MmCopyMemory for reading the process memory.</p>
 <img src="https://i.imgur.com/ozft12C.png" alt="deviceo">
 
@@ -47,7 +48,7 @@ The second function call reads the process memory through physical memory. It ta
 <p> <b>0x13370C00</b>: This was the final code found, which is for writing process memory. It takes a structure of the same size as the readprocessmemory with the same variables. The same function called before in the read request handler sets up the write function to be used, and the write function itself is called after that, taking the source address, buffer, size, and a variable that returns a value but is not used further. </p>
 <img src="https://i.imgur.com/hcenajT.png" alt="deviceo">
 
-<p>The write function converts the virtual address passed and converts it into a physical address (linear translation) and is used in MmMapIoSpaceEx for writing/mapping values to the process memory.</p>
+<p>The write function takes the virtual address passed and converts it into a physical address (linear translation) and is used in MmMapIoSpaceEx for writing/mapping values to the process memory.</p>
 <img src="https://i.imgur.com/rYDFhhl.png" alt="deviceo">
 <img src="https://i.imgur.com/sbVJfYw.png" alt="deviceo">
 
