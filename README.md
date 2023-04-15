@@ -41,7 +41,7 @@
 The second function call reads the process memory through physical memory. It takes the source address, buffer, size, and a variable that returns a value but is not used further: </p>
 <img src="https://i.imgur.com/q0O8EwJ.png" alt="deviceo">
 
-<p> Taking a look inside the function, there is nothing that complicated; it converts the virtual address passed and converts it into a physical address (linear translation) and is used in MmCopyMemory for reading the process memory.</p>
+<p> Taking a look inside the function, there is nothing that complicated; it takes the virtual address passed and converts it into a physical address (linear translation) and is used in MmCopyMemory for reading the process memory.</p>
 <img src="https://i.imgur.com/ozft12C.png" alt="deviceo">
 
 <h4>WriteProcessMemory</h4>
