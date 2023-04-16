@@ -54,5 +54,5 @@ The second function call reads the process memory through physical memory. It ta
 
 <h2>Conclusion:</h2>
 <p>Overall, though not certain on how the driver is being allowed to be loaded on my Windows 11 and 10 systems despite having a revoked/expired certificate, reverse engineering the signed kernel driver was an interesting and challenging task. It involved dynamic analysis, divirtualization, and investigation into the driver's internals to uncover its functionalities and control codes. It's important to note that reverse engineering and cracking software without permission is illegal and can have severe consequences. As such, it's crucial to always act ethically and with integrity when dealing with software and its security.</p>
-<p> This repository contains the signed binary along with an example program on how to send requests to this driver and technically use it. <br>
-<b> Use at own risk. </b> </p> 
+<p> This repository contains the signed binary along with an example program on how to send requests to this driver and technically use it.</p> 
+<p><b> Use at own risk. </b> </p> 
